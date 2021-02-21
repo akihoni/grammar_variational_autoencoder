@@ -27,12 +27,12 @@ class Session():
             self.optimizer.zero_grad()
             recon_batch, mu, log_var = self.model(data)
             loss = self.loss_fn(data, mu, log_var, recon_batch)
-            _losses.append(loss.numpy())
+            _losses.append(loss.detach().numpy())
             loss.backward()
             self.optimizer.step()
             self.train_step += 1
 
-            loss_value = loss.data.numpy()
+            loss_value = np.array([loss.data.numpy()])
             batch_size = len(data)
 
             self.dashboard.append('training_loss', 'line',
