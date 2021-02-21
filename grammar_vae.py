@@ -53,7 +53,7 @@ class Session():
             data = Variable(data, volatile=True)
             # do not use CUDA atm
             recon_batch, mu, log_var = self.model(data)
-            test_loss += self.loss_fn(data, mu, log_var, recon_batch).data[0]
+            test_loss += self.loss_fn(data, mu, log_var, recon_batch).item()
 
         test_loss /= len(test_loader.dataset)
         print('testset length', len(test_loader.dataset))
